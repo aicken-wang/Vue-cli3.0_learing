@@ -1,0 +1,123 @@
+<!--
+@File    : 06_事件处理2.html
+@Time    : 2019/6/4 17:39
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!--
+.stop 阻止冒泡
+.prevent 阻止默认事件
+.capture 使用事件捕获模式
+.self 只在当前元素本身触发
+.once 只触发一次
+event.preventDefault() 或 event.stopPropagation()
+
+鼠标修饰符
+.left 左键
+.right 右键
+.middle 滚轮
+键值修饰符
+.enter 回车 13
+.tab 制表键
+.delete (捕获 “删除” 和 “退格” 键)
+.esc 返回
+.space 空格
+.up 上
+.down 下
+.left 左
+.right 右
+
+可以通过全局 config.keyCodes 对象自定义键值修饰符别名
+// 可以使用 v-on:keyup.a
+Vue.config.keyCodes.a = 65
+修饰键
+
+.ctrl
+.alt
+.shift
+.meta
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06_事件处理2</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+<style>
+    .parent{ background: #ccc; border:1px solid black;width:300px;height: 400px}
+    .primary{background: forestgreen;}
+    .dg{background: red;}
+    .default{ background:chartreuse;}
+     button{ margin-left: 25px;margin-top: 25px;}
+	.box{
+		width: 100px;
+		height: 200px;
+		background-color: red;
+        }
+	.bigBox{
+		width: 300px;
+		height: 300px;
+		background-color: green;
+        }
+</style>
+<body>
+<!--<div id="app" @click="setVal1" class="parent">-->
+    <!--<button class="primary" @click="setVal">普通按钮</button>-->
+    <!--<button class="dg" @click.stop="setVal">阻止冒泡</button>-->
+    <!--<button class="default" @click="reset">还原</button>-->
+    <!--<div>{{result}}</div>-->
+<!--</div>-->
+<div id="app">
+    <!--添加事件侦听器时使用事件捕获模式 从外向内-->
+    <!--<div class="box" @click.capture ="boxClick()">-->
+        <!--<button @click="btnClick()">点我</button>-->
+    <!--</div>-->
+
+    <!-- .stop 阻止冒泡 从内到外 -->
+
+    <!--<div class="box" @click="boxClick()">-->
+         <!--<button v-on:click.stop="btnClick()">点我</button>-->
+     <!--</div>-->
+
+
+    <!--阻止默认事件-->
+     <a href="https://www.baidu.com" @click="search()">我要搜索资料</a>
+
+
+</div>
+</body>
+<script>
+    var example = new Vue({
+        el: '#app',
+        data:{
+            result:''
+        },
+        methods:{
+            setVal(event){
+                this.result+=' 子级 ';
+            },
+            setVal1(){
+                this.result+=' 父级 ';
+            },
+            reset(){
+                history.go()
+            },
+			btnClick(){
+                console.log('点击了按钮');
+            },
+            boxClick(){
+                console.log('点击了盒子');
+            },
+            search(){
+                console.log("百度一下，你就知道")
+            }
+        }
+    });
+</script>
+</html>

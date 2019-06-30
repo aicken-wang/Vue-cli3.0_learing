@@ -1,0 +1,65 @@
+<!--
+@File    : 08_数组的使用.html
+@Time    : 2019/6/5 17:24
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08_数组的使用</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <p v-for="(count,index) in 10" :key="index">第{{ count }}次, 总计 10次</p>
+
+    <!--<p v-for="(item,index) of 10" :key="index">第{{ item }}次, 总计 10次</p>-->
+
+    <ul ref="ulParent">
+        <li style="height: 60px;">1</li>
+        <li style="height: 30px;">2</li>
+        <li style="height: 50px;">3</li>
+        <li style="height: 160px;">4</li>
+        <li style="height: 10px;">5</li>
+    </ul>
+    <button @click="getAllLiHeight()">获取高度数组</button>
+    <button @click="dealSome()">验证some</button>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            arr:[ 'baidu.com','Hello world','windows']
+        },
+        methods:{
+            getAllLiHeight(){
+                let liHeightArr = [];
+                // 1. 获取dom元素
+                let allLis = this.$refs.ulParent.getElementsByTagName('li');
+                console.log(allLis);
+                console.log(Array.prototype.slice.call(allLis));
+                Array.prototype.slice.call(allLis).forEach(li => {
+                    liHeightArr.push(li.clientHeight);
+                });
+                console.log(liHeightArr);
+            },
+            dealSome(){
+                let result = this.dataArr.some((str)=>{
+                    return str === 'itlike.com';
+                });
+                console.log(result);
+            }
+        }
+    });
+</script>
+</html>

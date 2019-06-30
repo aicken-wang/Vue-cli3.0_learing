@@ -1,0 +1,50 @@
+﻿<!--
+@File    : 插值表达式.html
+@Time    : 2019/6/4 15:59
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="./lib/vue@2.6.10.js"></script>
+        <script src="./lib/vue-router@3.0.6.js"></script>
+        <script src="./lib/vuex@3.1.1.js"></script>
+        <style>
+            body{
+                background: #fff;
+                color: #000;
+                font-size: 2.0 rem;
+                position: relative;
+            }
+            #app {
+                width:100%;
+                padding-top: 50px;
+                text-align: center;
+            }
+            #app div{
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            {{ message }}
+        </div>
+    </body>
+    <script>
+        var vm = new Vue( {
+            el : '#app',
+            data:{
+                message: "Hello Vue2.0 !"
+            },
+            mounted(){
+                console("mounted!")
+            },
+        } );
+    </script>
+</html>

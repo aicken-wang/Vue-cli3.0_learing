@@ -1,0 +1,56 @@
+<!--
+@File    : 04_computed使用.html
+@Time    : 2019/6/4 15:59
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04_computed使用</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+<style>
+    #app{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #ffffff;
+        font-size: 1.0rem;
+        width: 100%;
+    }
+    #app div{
+        text-align: center;
+
+    }
+</style>
+<body>
+    <div id="app">
+        <input v-model ="message" type="text" placeholder="请输入反转的字符串">
+        <p>反向字符串: "{{ reversedMessage }}"</p>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        },
+        computed: {
+            reversedMessage: function () {
+                return this.message.split('').reverse().join('')
+            }
+        },
+        mounted() {
+        },
+        watch: {}
+    })
+</script>
+</html>

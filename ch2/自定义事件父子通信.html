@@ -1,0 +1,80 @@
+<!--
+@File    : 自定义事件父子通信.html
+@Time    : 2019/6/6 14:52
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义事件父子通信</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+</body>
+<script>
+    var childNode = {
+        template: `
+  <div class="child">
+    <div>
+      <span>子组件数据</span>
+      <input v-model="childMsg" @input="data">
+    </div>
+    <p>{{childMsg}}</p>
+  </div>
+  `,
+        data(){
+            return{
+                childMsg:''
+            }
+        },
+        methods:{
+            data(){
+                this.$emit('pass-data',this.childMsg)
+            }
+        }
+    }
+    var parentNode = {
+        template: `
+  <div class="parent">
+    <div>
+      <span>父组件数据</span>
+      <input v-model="msg">
+    </div>
+    <p>{{msg}}</p>
+    <child @pass-data="getData"></child>
+  </div>
+  `,
+        components: {
+            'child': childNode
+        },
+        data(){
+            return {
+                'msg':'hello'
+            }
+        },
+        methods:{
+            getData(value){
+                this.msg = value;
+            }
+        }
+    };
+    // 创建根实例
+    new Vue({
+        el: '#app',
+        components: {
+            'parent': parentNode
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,75 @@
+<!--
+@File    : 06_事件处理3.html
+@Time    : 2019/6/4 18:07
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!--
+.stop 阻止冒泡
+.prevent 阻止默认事件
+.capture 使用事件捕获模式
+.self 只在当前元素本身触发
+.once 只触发一次
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态组件</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="change">切换页面</button>
+        <keep-alive>
+            <component :is="currentView" @pass-data="getData"></component> 
+        </keep-alive>
+        <p>{{msg}}</p>  
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            index:0,
+            msg:'',
+            arr:[
+                { 
+                    template:`<div>我是预售电影</div>`,
+                    activated(){
+                        this.$emit('pass-data','主页被添加');
+                    },
+                    deactivated(){
+                        this.$emit('pass-data','主页被移除');
+                    },        
+                },
+                {template:`<div>我是正在热播</div>`},
+                {template:`<div>我是预售电影</div>`}
+                ]
+        },
+        computed:{
+            currentView(){
+                return this.arr[this.index];
+            }
+        },
+        methods:{
+            change(){
+                var len = this.arr.length;
+                this.index = (++this.index)% len;
+            },
+            getData(value){
+                this.msg = value;
+                setTimeout(()=>{
+                    this.msg = '';
+                },500)
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!--
+@File    : 06_鼠标事件.html
+@Time    : 2019/6/4 19:23
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06_鼠标键盘事件</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @mouseup.right="right" @mouseup.middle="middle" @mouseup.left="left">{{message}}</button
+        <button @keyup.enter="enter" @keyup.tab="tab" @keyup.delete="delete1" @keyup.esc="esc" @keyup.space="space" @keyup.up="up" @keyup.down="down" @keyup.left="left" @keyup.right="right">{{message}}</button>
+
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el : "#app",
+        data:{
+            message:'点击鼠标键盘事件，会出现不同的效果'
+        },
+        methods:{
+            left(){
+                this.message = 'left'
+            },
+            right(){
+                this.message = 'right'
+            },
+            middle(){
+                this.message = 'middle'
+            },
+            enter(){
+                this.message = 'enter'
+            },
+            tab(){
+                this.message = 'tab'
+            },
+            delete1(){
+                this.message = 'delete'
+            },
+            esc(){
+                this.message = 'esc'
+            },
+            space(){
+                this.message = 'space'
+            },
+            up(){
+                this.message = 'up'
+            },
+            down(){
+                this.message = 'down'
+            },
+            left(){
+                this.message = 'left'
+            },
+            right(){
+                this.message = 'right'
+            },
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,57 @@
+<!--
+@File    : 父子组件间通信.html
+@Time    : 2019/6/6 11:02
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父子组件间通信</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    {{ message }}
+    <mytest :test = "1+1"> </mytest>
+    <!-- 在 HTML 中是 kebab-case 的 -->
+    <my-component msg =" 你好啊！"></my-component>
+    <blog-post post-title="hello!"></blog-post>
+</div>
+</body>
+<script>
+    console.log(h)
+    var h = "github.com";
+    h="hello world";
+    console.log(h)
+
+    // var myComponent = Vue.extend({
+    //     template:'<div>test = {{ test }}</div>'
+    // });
+    //
+    // Vue.component('mytest',myComponent)
+    // Vue.component( 'my-component',{props:['msg'],
+    //     template:'<div style="background:#000;color:#fff;">我是子组件msg = {{ msg }}}</div>>'}
+    // );
+    // Vue.component('blog-post', {
+    //     // 在 JavaScript 中是 camelCase 的
+    //     props: ['postTitle'],
+    //     name:"post",
+    //     template: '<h3> 我是blog-post 组件{{ postTitle }}</h3>'
+    // });
+    // var vm = new Vue({
+    //     el: '#app',
+    //     data: {
+    //         message: 'Hello Vue!'
+    //     },
+    //
+    // });
+</script>
+</html>

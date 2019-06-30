@@ -1,0 +1,57 @@
+<!--
+@File    : 插槽slot.html
+@Time    : 2019/6/6 11:29
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>插槽slot</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+    <style>
+        .demo-slot-box{
+            width: 100%;
+            background: lightpink;
+            padding: 25px;
+            font-size: 20px;
+        }
+       .box-border{
+            border: 1px red dashed;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    {{ message }}
+    <slot-box class ="box-border"> </slot-box>
+    <slot-box class ="box-border"> 这是一个ERR提示！</slot-box>
+
+
+</div>
+</body>
+<script>
+    //注册子组件
+    Vue.component('slot-box', {
+        template: `
+            <div class="demo-slot-box">
+              <strong>Error!</strong>
+              <slot>请插入定制内容！</slot>
+            </div>
+          `});
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+</script>
+</html>

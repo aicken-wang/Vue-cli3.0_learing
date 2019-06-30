@@ -1,0 +1,78 @@
+<!--
+@File    : 自定义事件之sync.html
+@Time    : 2019/6/6 14:41
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义事件之sync</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+</body>
+<script>
+    /*
+    <comp :foo.sync="bar"></comp>
+    编译时会被扩展为
+    <comp :foo="bar" @update:foo="val => bar = val"></comp>
+    当子组件需要更新 foo 的值时，它需要显式地触发一个更新事件：
+    this.$emit('update:foo', newValue)
+    */
+    var childNode = {
+        template: `
+  <div class="child">
+    <div>子组件数据：{{childMsg}}</div>
+    <input v-model="childMsg">
+    <button @click=add >+1</button>
+  </div>
+  `,
+        data(){
+            return{
+                childMsg: 0
+            }
+        },
+        methods:{
+            add(){
+                this.childMsg++;
+
+                this.$emit('update:foo',this.childMsg);
+            }
+        }
+    };
+    var parentNode = {
+        template: `
+  <div class="parent">
+    <p>父组件数据：{{msg}}</p>
+    <child :foo.sync="msg"></child>
+  </div>
+  `,
+        components: {
+            'child': childNode
+        },
+        data(){
+            return {
+                'msg':0
+            }
+        }
+    };
+    // 创建根实例
+    new Vue({
+        el: '#app',
+        components: {
+            'parent': parentNode
+        }
+    })
+</script>
+</html>

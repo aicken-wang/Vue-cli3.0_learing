@@ -1,0 +1,97 @@
+<!--
+@File    : 05_声明周期.html
+@Time    : 2019/6/4 15:59
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05_声明周期</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<style>
+    #app{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #ffffff;
+        font-size: 1.0rem;
+        width: 100%;
+    }
+    #app div{
+        text-align: center;
+    }
+</style>
+<body>
+    <div id="app">
+        <div id="context"> 这是一个测试ID</div>
+        <hr>
+
+        <p v-html ="msgHtml"></p>
+        <input v-model="message" type="text">
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        //el: '#app',
+        //template:  `    <div id="context"> 这是一个测试ID</div>{{ message }} `,
+        data: {
+            message: 'Hello Vue!',
+            msgHtml:"<h1>Hello</h1>"
+        },
+        beforeCreate(){
+            //在实例开始初始化时同步调用。
+            // 此时数据观测、事件等都尚未初始化
+            console.log("创建之前初始化 ：beforeCreate");
+            console.log(this.message);
+        },
+        created : function(){
+            //在实例创建之后调用。此时已完成数据观测、事件方法，
+            // 但尚未开始DOM编译，即未挂载到document中
+            console.log("创建之后 : created()");
+            console.log(this.message)
+        },
+        beforeMount() {
+            //在mounted之前运行
+            console.log("元素挂载到app之前：beforeMount()");
+            console.log("无法操作界面节点 " + document.getElementById("context"))
+        },
+        mounted() {
+            //在编译结束时调用。此时所有指令已生效，
+            // 数据变化已能触发DOM更新，但不保证$el已插入文档  
+            console.log("编译结束,数据变化会触发DOM更新：mounted()");
+            console.log("操作界面节点 " + document.getElementById("context"))
+        },
+        beforeUpdate(){
+            //在实例挂载之后，再次更新实例(例如更新 data)时会调用该方法，此时尚未更新DOM结构
+            console.log("更新实例 beforeUpdate()")
+        },
+        updated() {
+            //在实例挂载之后，再次更新实例并更新完DOM结构后调用
+            console.log("更新实例 updated()")
+            //组件更新后调用$destroyed函数，进行销毁
+            //强制销毁
+            //this.$destroy();
+        },
+        beforeDestroy() {
+            //在开始销毁实例时调用，此刻实例仍然有效
+            console.log("beforeDestroy()销毁前，该把定时器清理了，释放内存")
+
+        },
+        destroyed() {
+            //在实例被销毁之后调用。此时所有绑定和实例指令都已经解绑，子实例也被销毁
+            console.log("destroyed () 再见")
+        }
+		
+    });
+	vm.$mount('#app')
+</script>
+</html>

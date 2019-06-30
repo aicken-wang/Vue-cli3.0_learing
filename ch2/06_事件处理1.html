@@ -1,0 +1,73 @@
+<!--
+@File    : 06_事件处理1.html
+@Time    : 2019/6/4 17:09
+@Author  : wangshunqing
+@Email   : wangshunqing0928@163.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06_事件处理1</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+<style>
+#app{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+    font-size: 1.0rem;
+    width: 100%;
+}
+#app div{
+    text-align: center;
+}
+#app button{
+    text-align: center;
+    width: 120px;
+    margin: 5px;
+}
+</style>
+<body>
+    <div id="app">
+        <button v-on:click="counter_one += 1">使用方法一</button>
+        <p>使用方法一 这个按钮被点击了 {{ counter_one }} 次。</p>
+        <hr>
+        <button v-on:click="num">使用方法二</button>
+        <p>{{ message }}</p>
+
+        <button @click ="say('Hi')">Say(Hi)</button>
+        <button v-on:click ="say('What')">Say(What)</button>
+        <p> {{ say_message}}</p>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message : 'Hello Vue!',
+            counter_one : 0,
+            counter_two : 0,
+            say_message : ''
+        },
+        methods : {
+            num (e) {
+                if(e){
+                    //event.preventDefault()或event.stopPropagation()
+                    this.message = e.target.innerHTML + ' 这个按钮被点击了' + ++this.counter_two + '次';
+                }
+            },
+            say:function (arg) {
+                this.say_message = 'Say ' + arg;
+            }
+
+        }
+    });
+</script>
+</html>

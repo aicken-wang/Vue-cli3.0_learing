@@ -1,0 +1,65 @@
+<!--
+@File    : 动态组件-局部.html
+@Time    : 2019/6/6 10:42
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态组件-局部</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body><div id="app">
+    {{ message }}
+    <!--4.0 在挂载元素范围内使用组件-->
+    <my-component/>
+</div>
+<div id="example">
+    {{ tip }}
+    <my-component/>
+    <my-component2/>
+</div>
+</body>
+<script>
+    // 注册组件，传入一个扩展过的构造器
+    //Vue.component('my-component', Vue.extend({template:'<h1>Vue.extend</h1>'}));
+    //console.log(MyComponent);
+
+    //1.0 创建一个组件构造器
+    var myComponent = Vue.extend({ template: '<div style="background:#cccccc"> 谁注册谁使用</div>'})
+
+    //2.0 注册组件，并指定组件的标签，组件的HTML标签为<my-component>
+    //Vue.component('my-component', myComponent)
+    //2.0 通过id=app进行挂载
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Vue示例1!'
+        },
+        components:{
+            'my-component': myComponent
+        }
+    });
+    let vm2 = new Vue({
+        data:{
+            tip: 'Vue示例2 !'
+        },
+        // 局部注册，my-component2是标签名称
+        //注册组件，传入一个选项对象 (自动调用 Vue.extend)
+        components:{
+            'my-component2': {
+                template: '<div style="color:red">给生活来点色彩，撮合着用你吧！</div>'
+            }
+        }
+
+    }).$mount("#example")
+</script>
+</html>

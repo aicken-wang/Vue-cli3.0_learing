@@ -1,0 +1,52 @@
+<!--
+@File    : Vue的transitions.html
+@Time    : 2019/6/6 14:07
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue的transitions</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+    <link href="./lib/animate.css@3.5.1.css" rel="stylesheet" type="text/css">
+    <style>
+        #app div{
+            padding-left: 20%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <button @click="show = !show">
+        Toggle render
+    </button>
+    <div>
+        <transition
+                name="custom-classes-transition"
+                enter-active-class="animated tada"
+                leave-active-class="animated bounceOutRight"
+        >
+            <p v-if="show">{{ message }}</p>
+        </transition>
+    </div>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            show : false,
+            message: 'Hello Vue!'
+        }
+    });
+</script>
+</html>

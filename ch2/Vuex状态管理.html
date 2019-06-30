@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vuex状态管理</title>
+</head>
+<script src="./lib/vue@2.6.10.js"></script>
+<script src="./lib/vuex@3.1.1.js"></script>
+<style>
+*{ margin : 0; padding : 0;}
+ul,li{ list-style: none;}
+img{ display: block;}
+html,body{ height:100%;}
+.clearfix:after{ content:""; display: block; clear:both;}
+
+.content{
+   background: #ccc;
+   padding: 50px;
+}
+div{
+    height: 100%; 
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+}
+div input,span {
+    text-align: center;
+    width: 40px;
+    height: 25px;
+}
+.color-green{
+    
+}
+</style>
+<body>
+    <div id="app">
+    </div>
+</body>
+<script>
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment: state => state.count++,
+    decrement: state => state.count--,
+  }
+})
+new Vue({
+  el: '#app',
+  computed: {
+    count () {
+      console.log('count ', store.state.count)
+      return store.state.count
+    }
+  },
+  // view
+  template: `
+  <div class="content">
+    <input type="button" class="color-green" value="-" @click="decrement">
+    <span>{{count}}</span>
+    <input type="button" id="onSure" class="color-red" value="+" @click="increment">
+  </div>
+  `,
+  // actions
+  methods: {
+    increment () {
+        console.log('inc')
+      store.commit('increment')
+    },
+    decrement () {
+      store.commit('decrement')
+    },    
+  },
+  mounted(){
+      //this.increment();
+      console.log('this', this)
+    //   setTimeout(function(){
+    //       console.log('time this', this)
+    //       alert("1s")
+    //   },1000);
+  }
+})
+</script>
+</html>

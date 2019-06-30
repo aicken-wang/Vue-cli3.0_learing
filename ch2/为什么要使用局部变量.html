@@ -1,0 +1,52 @@
+<!--
+@File    : 为什么要使用局部变量.html
+@Time    : 2019/6/6 11:42
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>为什么要使用局部变量</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    {{ message }}
+    <my-component :count.sync = 'counter' @changeconuter="changeconuter()"></my-component>
+    <my-component :count = 'counter' @changeconuter="changeconuter()"></my-component>
+    <my-component :count = 'counter' @changeconuter="changeconuter()"></my-component>
+</div>
+</body>
+<script>
+    var myComponent = Vue.extend({
+        props:['count'],
+        methods:{
+            change(){
+                this.$emit('changeconuter');
+            }
+        },
+        template:'<button @click="change"> 点击{{ count}}次数 </button> '});
+    Vue.component('my-component',myComponent);
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            counter : 0,
+            message: 'Hello Vue!'
+        },
+        methods:{
+            changeconuter(){
+                alert(2)
+                counter++;
+            }
+        }
+    });
+</script>
+</html>

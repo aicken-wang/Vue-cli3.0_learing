@@ -1,0 +1,46 @@
+<!--
+@File    : 07_使用v-bind 绑定style示例.html
+@Time    : 2019/6/5 17:03
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07_使用v-bind 绑定style示例</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+<style>
+    .Invalid-color{
+        background: red;
+        font-size: 20px;
+    }
+    .style-after{
+        font-size: 20px;
+        background: green;
+    }
+</style>
+<body>
+<div id="app">
+    <p class="Invalid-color style-after"  style="background:orange;" > {{ message }} </p>
+    <p :style="style_one"> {{ message }}</p>
+    <p v-bind:style="[style_one, style_two]">{{ message }}</p>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'good good study，day day up !',
+            style_one:{ 'color': 'gold','font-size': '30px'},
+            style_two:{ 'color': '#ccc','font-style': 'italic'}
+        }
+    });
+</script>
+</html>

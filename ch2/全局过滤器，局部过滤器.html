@@ -1,0 +1,124 @@
+<!--
+@File    : 全局过滤器，局部过滤器.html
+@Time    : 2019/6/5 10:05
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全局过滤器，局部过滤器</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    {{ message }}
+    <div>
+        <input type="text" v-model="amount" placeholder="自定义价格！">
+    </div>
+    <p> 价格：{{ amount | formatAmount(2)}}</p>
+    <p> 购买数量：<input type="text" v-model="total" placeholder="请输入购买的数量！"></p>
+    <p> 总计：{{ format_total() | moneyFormat}}</p>
+    <p> 局部过滤器：{{ amount | moneyFormat('我会成为第二个参数')}}</p>
+    <p> 当前时间：{{date_time | dateFormat(arr_week) }}</p>
+</div>
+</body>
+<script>
+    Vue.filter('dateFormat', (time, week) => {
+        let year = time.getFullYear(),
+            m = time.getMonth(),
+            d = time.getDate(),
+            t = time.getHours(),
+            mm = (time.getMinutes()).toString().padStart(2, '0'),
+            s = (time.getSeconds()).toString().padStart(2,"0"),
+            day = time.getDay();
+        return `${year} 年 ${m +1} 月${d}日 , 星期${week[day]}  ${t} 点 ${mm} 分 ${s}秒`;
+    });
+
+    Vue.filter('formatAmount',(strVal,nAfterDot)=>{ //nAfterDot小数位数
+            var strNewVal, resultStr,nTen;
+            if(strVal == null || strVal == "" || strVal == undefined){
+                return "0.00";
+            }
+            strNewVal = parseFloat(strVal+"");
+            strNewVal = strNewVal+"";
+            strLen = strNewVal.length;
+            dotPos = strNewVal.indexOf(".",0);
+            if (dotPos == -1){
+                resultStr = strNewVal+".";
+                for (i=0;i<nAfterDot;i++){
+                    resultStr = resultStr+"0";
+                }
+            }
+            else{
+                if ((strLen - dotPos - 1) >= nAfterDot){
+                    nAfter = dotPos + nAfterDot + 1;
+                    nTen =1;
+                    for(j=0;j<nAfterDot;j++){
+                        nTen = nTen*10;
+                    }
+                    resultStr = Math.round(parseFloat(strNewVal)*nTen)/nTen;
+                }
+                else{
+                    resultStr = strNewVal;
+                    for (i=0;i<(nAfterDot - strLen + dotPos + 1);i++){
+                        resultStr = resultStr+"0";
+                    }
+                }
+            }
+
+        return '￥' + resultStr;
+    });
+    //第一个值是 |前的 后面的是 才是 memoryFormat()的参数 依次类推
+    Vue.filter('moneyFormat',(arg1, arg2)=>{
+        //arg 是需要格式化的值
+        if ( undefined !=  arg2)
+            console.log(arg2);
+        return "$ " + arg1;
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            amount : 30,
+            total : 0,
+            message : 'Hello Vue!',
+            date_time : 0,
+            arr_week : ['日','一','二','三','四','五','六']
+        },
+        // filters:{
+        //     //局部过滤器
+        //     moneyFormat(arg) {
+        //         return "$ " + arg;
+        //     }
+        //
+        // },
+        methods:{
+            format_total(){
+                return this.total * this.amount;
+            }
+        },
+        beforeUpdate(){
+            clearInterval(time1);
+        },
+        updated(){
+            time1 = setTimeout(()=>{
+                this.$nextTick( () => {
+                        this.date_time = new Date();
+                    }
+                )
+            },1000);
+        },
+        mounted(){
+            this.date_time = new Date();
+            console.log(this.date_time.toLocaleDateString());
+        }
+    });
+</script>
+</html>

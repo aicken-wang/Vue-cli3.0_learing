@@ -1,0 +1,45 @@
+<!--
+@File    : seleced_v-model.html
+@Time    : 2019/6/27 10:03
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>seleced_v-model</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+<style>
+    select{
+        height: 35px;
+        background: goldenrod;
+
+    }
+</style>
+<body>
+<div id="app">
+    {{ message }}
+    <select v-model="val_selected">
+        <option v-for="(todo,index) in todolist" :key="index" :value="todo" >{{ todo }}</option>
+    </select>
+    <p> 您选中的是{{ val_selected}}</p>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            val_selected: null,
+            todolist:["Monday","Tuesday","Wednesday","Thursday", "Friday"]
+        }
+    });
+</script>
+</html>

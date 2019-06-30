@@ -1,0 +1,70 @@
+<!--
+@File    : 自定义事件.html
+@Time    : 2019/6/6 14:35
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义事件</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+</body>
+<script>
+    var childNode = {
+        template: `<button @click="incrementCounter">{{ counter }}</button>`,
+        data(){
+            return {
+                counter: 0
+            }
+        },
+        methods:{
+            incrementCounter(){
+                this.counter ++;
+                this.$emit('increment');
+            }
+        },
+    }
+    var parentNode = {
+        template: `
+  <div class="parent">
+    <p>{{total}}</p>
+    <child @increment="incrementTotal"></child>
+    <child @increment="incrementTotal"></child>
+  </div>
+  `,
+        components: {
+            'child': childNode
+        },
+        data(){
+            return {
+                'total':0
+            }
+        },
+        methods:{
+            incrementTotal(){
+                this.total ++;
+            }
+        }
+    };
+    // 创建根实例
+    new Vue({
+        el: '#app',
+        components: {
+            'parent': parentNode
+        }
+    })
+</script>
+</html>

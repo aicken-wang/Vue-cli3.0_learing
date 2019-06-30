@@ -1,0 +1,44 @@
+<!--
+@File    : 01_指令.html
+@Time    : 2019/6/4 15:59
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>01_指令</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./lib/vue@2.6.10.js"></script>
+</head>
+<style>
+    #app input{
+        width: 80%;
+    }
+</style>
+<body>
+<div id="app">
+    <p> {{ message }}</p>
+    <input type="text" placeholder="这个输入框不会自动获取焦点"><br/>
+    <input v-focus type="text"  placeholder="获取焦点"/>
+</div>
+</body>
+<script>
+    // 注册一个全局自定义指令 v-focus
+    Vue.directive('focus', {
+        // 当绑定元素插入到 DOM 中。
+        inserted: function (el) {
+            // 聚焦元素
+            el.focus()
+        }
+    })
+    var vm = new Vue( {
+        el : '#app',
+        data:{
+            message: "Hello Vue2.0 !"
+        },
+    } );
+</script>
+</html>

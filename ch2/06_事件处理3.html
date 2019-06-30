@@ -1,0 +1,78 @@
+<!--
+@File    : 06_事件处理3.html
+@Time    : 2019/6/4 18:07
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!--
+.stop 阻止冒泡
+.prevent 阻止默认事件
+.capture 使用事件捕获模式
+.self 只在当前元素本身触发
+.once 只触发一次
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06_事件处理3</title>
+    <script src="lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+<style>
+    .parent{ background: #ccc; border:1px solid black;width:100px;height: 200px}
+    .primary{background: forestgreen;}
+    .dg{background: red;}
+    .default{ background:chartreuse;}
+    button{ margin-left: 25px;margin-top: 25px;}
+</style>
+<body>
+    <div id="app">
+        {{ message }}
+        <button @click.once="on_once"> once按钮点击一次 </button>
+
+
+        <div class="parent" @click="on_parent">
+            <button @click.capture ="on_child"> 子按钮 </button>
+        </div>
+        <a href="https://www.baidu.com" target="_blank">普通链接 百度</a>
+        <a @click.prevent href="https://www.baidu.com" target="_blank">取消默认行为 无法访问百度</a>
+    </div>
+</body>
+<script>
+    Vue.config.silent = true
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            counter:0
+        },
+        methods:{
+            on_once(){
+                this.message = "once 被点击" + ++this.counter;
+                console.log(this.message);
+            },
+            on_prevent() {
+                this.message = "on_parent 的 div 事件被触发" + ++this.counter;
+                console.log(this.message);
+            },
+            on_parent () {
+                this.message = "默认事件不生效，无法跳转到百度" + ++this.counter;
+                console.log(this.message);
+            },
+            on_child() {
+                this.message = " on_child 子按钮" + ++this.counter;
+                console.log()
+            }
+
+        },
+        mounted() {
+        },
+        watch: {}
+    })
+</script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        //V
+        <input id="input" type="text"/>
+        <button id="btn">提交</button>
+        <ul id="ul"></ul>
+    </div>
+    <script>
+        //M V C
+        //M模型层 <==>  C  控制器（Presenter） <==>  V 视图层
+
+        // C => M
+        function Page() {
+            
+        }
+        $.extend(Page.prototype,{
+            init:function () {
+                this.bindEvents()
+            },
+            bindEvents:function () {
+                var btn = $('#btn');
+                btn.on('click', $.proxy(this.handleBtn,this))
+            },
+            handleBtn:function () {
+                //alert('123')
+                var inputElem = $('#input');
+                var inputValue = inputElem.val();
+                var ulElem = $("#ul");
+                ulElem.append('<li>' + inputValue + '</li>');
+                inputElem.val('');
+            }
+        })
+        var page = new Page();
+        page.init();
+    </script>
+</body>
+</html>

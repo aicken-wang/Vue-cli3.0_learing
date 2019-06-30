@@ -1,0 +1,72 @@
+<!--
+@File    : 延展操作符.html
+@Time    : 2019/6/6 8:17
+@Author  : wangshunqing
+@Email   : aickenwang@gmail.com
+@Software: WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>延展操作符</title>
+    <script src="./lib/vue@2.6.10.js"></script>
+    <script src="./lib/vuex@3.1.1.js"></script>
+    <script src="./lib/vue-router@3.0.6.js"></script>
+</head>
+
+<body>
+<div id="app">
+    {{ message }}
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: ['Hello Vue!']
+        },
+        mounted(){
+            let arr_name = ['jack', 'rose'];
+            let append_name = ['aicken' ,'martin', 'King'];
+            let all_name = [...arr_name, ...append_name, 'Hello World'];
+            this.message = all_name;
+            console.log("forEach 遍历数组 ");
+            arr_name.forEach((v) => { console.log( v )});
+            console.log("map 产生一个新数组 ");
+            let who_are_you = arr_name.map((item) => { return "my Name is " + item });
+            console.log(typeof who_are_you);
+            console.log(who_are_you);
+            console.log('Filter 筛选数组种符合条件的项，返回新数组');
+            let new_member = all_name.filter( (item) => {return item === 'King'||item === 'aicken'});
+            console.log(new_member);
+
+            console.log('reduce 参数1 和参数2 相加得到累加值');
+
+            let  number_arr = [];
+            for (let i =0; i < 100; i++){
+                number_arr.push(i);
+            }
+            console.log(number_arr);
+            console.log('从10 开始 加 0 ~ 99');
+            let res_arr = number_arr.reduce((item,init_data) => { return item + init_data; },0);
+            console.log(res_arr);
+            console.log( 'some 是满足即返回true  |   every 是全部满足才返回 true');
+            let  flag = number_arr.some( (item,index) => {return item >101;});
+            console.log(flag);
+
+            flag = number_arr.some( (item ,index) => {return item > 0;});
+            console.log(flag);
+
+            flag = number_arr.every( (item) => {return item >1;});
+            console.log(flag);
+            flag = number_arr.every( (item) => {return item > -1;});
+            console.log(flag);
+
+
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!--
+@File     : hello_world.html
+@Time     : 2019/6/27 22:17
+@Author   : aicken-wang
+@github   : https://github.com/aicken-wang
+@jianshu  : https://www.jianshu.com/u/deee5fb86037
+@Software : WebStorm
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hello_world</title>
+    <script src="lib/vue@v2.6.10.js"></script>
+    <style>
+        #app{
+            background: goldenrod;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    {{ message }}
+</div>
+<div id="dom">
+
+</div>
+</body>
+<script>
+    //原生的
+    var dom = document.getElementById('dom');
+    dom.innerText = 'Hello World';
+    //Vue
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+    setTimeout(()=>vm.$data.message = 'Say Hello', 2000);
+</script>
+</html>
